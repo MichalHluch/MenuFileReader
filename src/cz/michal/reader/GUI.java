@@ -10,13 +10,10 @@ public class GUI extends JFrame {
     private JTextArea data;
     private JPanel panel;
 
-    private final JFileChooser jFileChooser;
+    private final JFileChooser jFileChooser = new JFileChooser(".");
 
     public GUI() {
-        jFileChooser = new JFileChooser(".");
-
         openFile.addActionListener(e -> showFileChooser());
-
         initComponents();
     }
 
@@ -42,6 +39,11 @@ public class GUI extends JFrame {
             return;
         }
 
+        if (listData.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "File is empty!");
+            return;
+        }
+
         listData.forEach(s -> data.append(s + "\n"));
     }
 
@@ -56,8 +58,8 @@ public class GUI extends JFrame {
 
         JMenuItem openItem = new JMenuItem("Open");
         openItem.addActionListener(e -> showFileChooser());
-        menu.add(openItem);
 
+        menu.add(openItem);
         menu.addSeparator();
 
         JMenuItem clearData = new JMenuItem("Clear");
@@ -66,7 +68,6 @@ public class GUI extends JFrame {
         menu.add(clearData);
 
         jMenuBar.add(menu);
-
         setJMenuBar(jMenuBar);
 
         data.setEditable(false);
